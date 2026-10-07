@@ -40,10 +40,14 @@ const loadSession = async () => {
     sessionServerUrl.pathname = "/get_pot";
 
     const newSession = await fetch(
-        sessionServerUrl,
-        { method: 'POST', dispatcher: defaultAgent }
-    ).then(a => a.json());
-
+    sessionServerUrl,
+    {
+        method: 'POST',
+        dispatcher: defaultAgent,
+        headers: { 'Content-Type': 'application/json' },
+        body: '{}'
+    }
+).then(a => a.json());
     validateSession(newSession);
 
     if (!session || session.updated < newSession?.updated) {
